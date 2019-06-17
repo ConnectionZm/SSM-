@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.xit.ssm.mapper.CommentMapper1" >
+  <resultMap id="BaseResultMap1" type="edu.xit.ssm.po.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="descr" property="descr" jdbcType="VARCHAR" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- <resultMap id="ResultMapWithBLOBs" type="edu.xit.ssm.po.Comment" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+ -->
+	<select id="selectCommentsAll" resultMap="BaseResultMap1">
+		select * from comment 
+	</select>
+	<select id="selectCommentsByBid" parameterType="java.lang.Integer" resultMap="BaseResultMap1">
+		select * from comment where bid=#{bid}
+	</select>
+	<delete id="deleteCommentById" parameterType="java.lang.Integer">
+		delete from comment where id=#{id}
+	</delete>
+</mapper>

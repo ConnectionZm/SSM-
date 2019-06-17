@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.xit.ssm.mapper.AccountMapper1" >
+  <resultMap id="BaseResultMap" type="edu.xit.ssm.po.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="sm_money" property="smMoney" jdbcType="REAL" />
+    <result column="confirm_money" property="confirmMoney" jdbcType="REAL" />
+    <result column="points" property="points" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="REAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+  </resultMap>
+  	<select id="selectAccount" resultMap="BaseResultMap">
+		select * from account
+	</select>
+  	<select id="selectAccountByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from account where user_id=#{userId}
+	</select>
+  	
+</mapper>

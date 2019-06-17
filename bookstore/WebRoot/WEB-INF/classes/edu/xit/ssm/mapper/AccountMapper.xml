@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.xit.ssm.mapper.AccountMapper" >
+  <resultMap id="BaseResultMap" type="edu.xit.ssm.po.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="sm_money" property="smMoney" jdbcType="REAL" />
+    <result column="confirm_money" property="confirmMoney" jdbcType="REAL" />
+    <result column="points" property="points" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="REAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, sm_money, confirm_money, points, balance, status, msg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.xit.ssm.po.AccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.xit.ssm.po.AccountExample" >
+    delete from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.xit.ssm.po.Account" >
+    insert into account (id, user_id, sm_money, 
+      confirm_money, points, balance, 
+      status, msg)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{smMoney,jdbcType=REAL}, 
+      #{confirmMoney,jdbcType=REAL}, #{points,jdbcType=INTEGER}, #{balance,jdbcType=REAL}, 
+      #{status,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.xit.ssm.po.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="smMoney != null" >
+        sm_money,
+      </if>
+      <if test="confirmMoney != null" >
+        confirm_money,
+      </if>
+      <if test="points != null" >
+        points,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="smMoney != null" >
+        #{smMoney,jdbcType=REAL},
+      </if>
+      <if test="confirmMoney != null" >
+        #{confirmMoney,jdbcType=REAL},
+      </if>
+      <if test="points != null" >
+        #{points,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.xit.ssm.po.AccountExample" resultType="java.lang.Integer" >
+    select count(*) from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update account
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.smMoney != null" >
+        sm_money = #{record.smMoney,jdbcType=REAL},
+      </if>
+      <if test="record.confirmMoney != null" >
+        confirm_money = #{record.confirmMoney,jdbcType=REAL},
+      </if>
+      <if test="record.points != null" >
+        points = #{record.points,jdbcType=INTEGER},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=REAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update account
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      sm_money = #{record.smMoney,jdbcType=REAL},
+      confirm_money = #{record.confirmMoney,jdbcType=REAL},
+      points = #{record.points,jdbcType=INTEGER},
+      balance = #{record.balance,jdbcType=REAL},
+      status = #{record.status,jdbcType=VARCHAR},
+      msg = #{record.msg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.xit.ssm.po.Account" >
+    update account
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="smMoney != null" >
+        sm_money = #{smMoney,jdbcType=REAL},
+      </if>
+      <if test="confirmMoney != null" >
+        confirm_money = #{confirmMoney,jdbcType=REAL},
+      </if>
+      <if test="points != null" >
+        points = #{points,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.xit.ssm.po.Account" >
+    update account
+    set user_id = #{userId,jdbcType=INTEGER},
+      sm_money = #{smMoney,jdbcType=REAL},
+      confirm_money = #{confirmMoney,jdbcType=REAL},
+      points = #{points,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=REAL},
+      status = #{status,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
